@@ -1,8 +1,15 @@
 from django.shortcuts import render
+from .models import Tarefa
 
-#def index(request):
- #   return render(request, 'index.html')
+def index(request):
+    tarefas = Tarefa.objects.all()
+    
+    context = {
+        'title': 'Django To-Do',
+        'tarefas': tarefas,
+    }
+    return render(request, 'index.html', context)
 
-#def contato(request):
- #   return render(request, 'contato.html')
+def create(request):
+    return render(request, 'create.html')
 

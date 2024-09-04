@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Home</title>
+  </head>
+  <body>
+    <h1>Home</h1>
+
+    <h2> {{ title }} </h2>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>Descrição</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for tarefas in tarefas%}
+      <tr>
+        <td> {{ tarefas.titulo }} </td>
+        <td> {{ tarefas.descricao }} </td>
+        <td> {{ tarefas.get_status_display }} </td>
+      </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </body>
+</html>
