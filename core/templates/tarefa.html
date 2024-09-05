@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+    <meta charset="UTF-8" />
+    <title>Tarefa</title>
+    <h5><a href="{% url 'home' %}">Voltar</a></h5>
+    <h3>Detalhes da Tarefa</h3>
+</head>
+<table>
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>Descrição</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td> {{ tarefa.titulo }} </td>
+      <td> {{ tarefa.descricao }} </td>
+      <td> {{ tarefa.get_status_display }} </td>
+    </tr>
+    </tbody>
+  </table> 
+<html>
