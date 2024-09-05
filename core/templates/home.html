@@ -15,6 +15,7 @@
           <th>Nome</th>
           <th>Descrição</th>
           <th>Status</th>
+          <th>Data<th>
         </tr>
       </thead>
       <tbody>
@@ -23,6 +24,7 @@
         <td><a href="{% url 'tarefa' tarefas.id %}"> {{ tarefas.titulo }} </a></td>
         <td> {{ tarefas.descricao }} </td>
         <td> {{ tarefas.get_status_display }} </td>
+        <td> {{ tarefas.dataCriacao|date:"d/m/Y" }} </td>
       </tr>
       {% endfor %}
       </tbody>

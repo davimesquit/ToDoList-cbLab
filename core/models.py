@@ -18,6 +18,7 @@ class Tarefa(models.Model):
         choices=STATUS_CHOICES,
         default=PENDENTE,
     )
+    dataCriacao = models.DateTimeField('Data de Criação', auto_now_add=True)
     
     def __str__(self):
         return self.titulo
