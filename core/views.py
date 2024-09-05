@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.shortcuts import get_object_or_404
 from .models import Tarefa
 
 def home(request):
@@ -14,10 +15,9 @@ def create(request):
     return render(request, 'create.html')
 
 def tarefa(request, pk):
-    print(f'PK: {pk}')
     tarefaId = Tarefa.objects.get(id=pk)
+    
     context = {
         'tarefa': tarefaId,
     }
     return render(request, 'tarefa.html', context)
-
