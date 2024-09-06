@@ -1,0 +1,26 @@
+{% load bootstrap4 %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8" />
+    <title>Tarefa</title>
+    {% bootstrap_css %}
+    <h5><a href="{% url 'home' %}">Voltar</a></h5>
+    <h3>Detalhes da Tarefa</h3>
+</head>
+<body>
+  <div class="container">
+    <h2> Gerenciar Tarefa: {{ tarefa.titulo }} </h2>
+    <form action="{% url 'manage_tarefa' tarefa.id %}"  method="POST" autocomplete="off" class="form">
+      {% csrf_token %}
+      {% bootstrap_form form %}
+      {% buttons %}
+      <button type="submit" name="edit" class="btn btn-primary">Salvar Alterações</button>
+      <button type="submit" name="delete" class="btn btn-danger" >Excluir tarefa</button>
+      {% endbuttons %}
+    </form>
+  </div>
+</div> 
+{% bootstrap_javascript jquery='full' %}
+<body>
+<html>

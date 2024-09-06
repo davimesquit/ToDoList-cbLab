@@ -3,6 +3,7 @@ from .models import Tarefa
 from django.contrib import messages
 from .forms import TarefaModelForm
 from django.shortcuts import redirect
+from django.shortcuts import get_object_or_404
 
 def home(request):
     tarefas = Tarefa.objects.all()
@@ -40,3 +41,27 @@ def tarefa(request, pk):
         'tarefa': tarefaId,
     }
     return render(request, 'tarefa.html', context)
+
+def manage_tarefa(request, pk):
+    tarefa = get_object_or_404(Tarefa, id=pk)
+    if request.method == 'POST':
+        if 'edit' in request.POST:
+            form = TarefaModelForm(request.POST, instance=tarefa)
+            if form.is_valid():
+                form.save()
+                return redirect('home')
+            else:
+                messages.error(request, 'Erro ao editar tarefa!')
+        elif 'delete' in request.POST:
+                tarefa.delete()
+                return redirect('home')
+    else:
+        form = TarefaModelForm(instance=tarefa)
+        print(form)
+        
+        context = {
+            'form': form,
+            'tarefa': tarefa,
+        }
+    
+    return render(request, 'manage_tarefa.html', context)
