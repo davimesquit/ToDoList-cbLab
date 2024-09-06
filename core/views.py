@@ -1,6 +1,7 @@
 from django.shortcuts import render
-from django.shortcuts import get_object_or_404
 from .models import Tarefa
+from django.contrib import messages
+from .forms import TarefaModelForm
 
 def home(request):
     tarefas = Tarefa.objects.all()
@@ -12,7 +13,23 @@ def home(request):
     return render(request, 'home.html', context)
 
 def create(request):
-    return render(request, 'create.html')
+    if str(request.method) == 'POST':
+        form = TarefaModelForm(request.POST)
+        if form.is_valid():
+            
+            form.save()
+            
+            messages.success(request, 'Tarefa cadastrada com sucesso!')
+            form = TarefaModelForm()
+        else: 
+            messages.error(request, 'Erro ao cadastrar tarefa!')
+    else: 
+        form = TarefaModelForm()
+        
+    context = {
+            'form': form,
+    }
+    return render (request, 'create.html',context)
 
 def tarefa(request, pk):
     tarefaId = Tarefa.objects.get(id=pk)
