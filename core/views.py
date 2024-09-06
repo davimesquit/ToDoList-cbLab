@@ -2,6 +2,7 @@ from django.shortcuts import render
 from .models import Tarefa
 from django.contrib import messages
 from .forms import TarefaModelForm
+from django.shortcuts import redirect
 
 def home(request):
     tarefas = Tarefa.objects.all()
@@ -21,6 +22,7 @@ def create(request):
             
             messages.success(request, 'Tarefa cadastrada com sucesso!')
             form = TarefaModelForm()
+            return redirect('home')
         else: 
             messages.error(request, 'Erro ao cadastrar tarefa!')
     else: 
