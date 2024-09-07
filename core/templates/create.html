@@ -10,7 +10,6 @@
   <body>
     <div class="container">
       <h1>Criação de tarefa</h1>
-      {% bootstrap_messages %}
       <form action="{% url 'create' %}" method="post" class="form" autocomplete="off">
       {% csrf_token %}
       {% bootstrap_form form %}
