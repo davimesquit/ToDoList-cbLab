@@ -1,26 +1,36 @@
-{% load bootstrap4 %}
+{% load bootstrap4 static %}
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8" />
     <title>Tarefa</title>
     {% bootstrap_css %}
-    <h5><a href="{% url 'home' %}">Voltar</a></h5>
-    <h3>Detalhes da Tarefa</h3>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
-  <div class="container">
-    <h2> Gerenciar Tarefa: {{ tarefa.titulo }} </h2>
-    <form action="{% url 'manage_tarefa' tarefa.id %}"  method="POST" autocomplete="off" class="form">
-      {% csrf_token %}
-      {% bootstrap_form form %}
-      {% buttons %}
-      <button type="submit" name="edit" class="btn btn-primary">Salvar Alterações</button>
-      <button type="submit" name="delete" class="btn btn-danger" >Excluir tarefa</button>
-      {% endbuttons %}
-    </form>
-  </div>
-</div> 
-{% bootstrap_javascript jquery='full' %}
-<body>
-<html>
+  <div class="wrapper">
+    <div class="container">
+      <h5 class="back-link-container mb-4">
+        <a href="{% url 'home' %}" class="btn btn-secondary back-button">&larr; Voltar</a>
+      </h5>
+      <h1 class="form-header text-center">Detalhes da Tarefa</h1>
+
+      <div class="container1 bg-dark text-white border-dark rounded p-4 my-4 shadow">
+        <h2 class="mb-4">Gerenciar Tarefa: {{ tarefa.titulo }}</h2>
+        <form action="{% url 'manage_tarefa' tarefa.id %}" method="POST" autocomplete="off" class="form">
+          {% csrf_token %}
+          {% bootstrap_form form %}
+          <div class="btn-container mt-3 text-center">
+            <button type="submit" name="edit" class="btn btn-primary">Salvar Alterações</button>
+            <button type="submit" name="delete" class="btn btn-danger">Excluir Tarefa</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <footer class="bg-dark text-white text-center py-3 mt-4">
+      <p>&copy; {{ current_year }} My To-Do App</p>
+    </footer>
+  </div> 
+  {% bootstrap_javascript jquery='full' %}
+</body>
+</html>

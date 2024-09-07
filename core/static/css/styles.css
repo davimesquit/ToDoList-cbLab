@@ -5,5 +5,60 @@ body {
 
 a {
     text-decoration: none;
-    color: rgb(211, 100, 20);
+    color: #007BFF;
+}
+
+a:hover {
+    color: #0056b3; 
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+.wrapper {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.container {
+    flex: 1;
+}
+
+.container1{
+    background-color: violet;
+}
+
+footer {
+    margin-top: auto;
+}
+
+.pagination {
+    margin-top: 50px;
+    margin-bottom: 5px;
+}
+
+.form-header {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.back-link {
+    margin-bottom: 20px;
+    display: inline-block;
+}
+
+.btn-container {
+    text-align: center;
+}
+
+.back-link-container {
+    margin-top: 20px; /* Ajusta o espaçamento superior */
+    margin-left: -15px; /* Move o container para a esquerda */
+}
+
+.back-button {
+    display: inline-block; /* Garante que o botão não se expanda para a largura total */
 }

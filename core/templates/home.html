@@ -1,14 +1,15 @@
-{% load bootstrap4 %}
+{% load bootstrap4 static%}
 <!DOCTYPE html>
 <html lang="pt-br">
    <head>
       <meta charset="UTF-8" />
       <title>Home</title>
       {% bootstrap_css %}
+      <link rel="stylesheet" href="{% static 'css/styles.css' %}">
    </head>
    <body>
       <div class="wrapper">
-         <header class="bg-primary text-white py-3 mb-4">
+         <div class="container">
             <h1 class="display-4"> To-Do em Django </h1>
             <!-- Formulário de busca-->
             <form method="get" class="mb-4" autocomplete="off">
@@ -25,12 +26,15 @@
                </div>
                <div class="form-row mt-3">
                   <div class="col">
-                     <label for="ordenar">Ordenar por:</label>
-                     <select name="ordenar" id="ordenar" class="form-control">
-                     <option value="data" {% if ordenar_por == 'data' %}selected{% endif %}>Data</option>
-                     <option value="status" {% if ordenar_por == 'status' %}selected{% endif %}>Status</option>
-                     </select>
-                  </div>
+                     <label for="ordenar_por">Ordenar por:</label>
+                     <div class="d-flex align-items-center">
+                        <select name="ordenar" id="ordenar_por" class="form-control mr-2">
+                        <option value="data" {% if ordenar_por == 'data' %}selected{% endif %}>Data</option>
+                        <option value="status" {% if ordenar_por == 'status' %}selected{% endif %}>Status</option>
+                        </select>
+                        <button type="submit" class="btn btn-primary">Aplicar</button>
+                     </div>
+                  </div>   
                </div>
             </form>
             <!--Tabela de Tarefas-->
@@ -40,8 +44,7 @@
                      <th>Nome</th>
                      <th>Descrição</th>
                      <th>Status</th>
-                     <th>Data
-                     <th>
+                     <th>Data</th>
                   </tr>
                </thead>
                <tbody>
@@ -61,32 +64,33 @@
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                <button type="button" class="btn btn-secondary btn-block"><a href="{% url 'create' %}"> Criar tarefa </a></button>
             </div>
-        </header> 
-
-         <!--Paginação-->
-         <nav aria-label="Page navigation">
-            <ul class="pagination justify-content-center">
-               {% if tarefasPg.has_previous %}
-               <li class="page-item">
-                  <a class="page-link" href="?page={{ tarefasPg.previous_page_number }}{% if query %}&query={{ query }}{% endif %}{% if ordenar_por %}&ordenar={{ ordenar_por }}{% endif %}" aria-label="Anterior">
-                  <span aria-hidden="true">&laquo;</span>
-                  </a>
-               </li>
-               {% endif %}
-               <li class="page-item disabled">
-                  <span class="page-link">
-                  Página {{ tarefasPg.number }} de {{ tarefasPg.paginator.num_pages }}
-                  </span>
-               </li>
-               {% if tarefasPg.has_next %}
-               <li class="page-item">
-                  <a class="page-link" href="?page={{ tarefasPg.next_page_number }}{% if query %}&query={{ query }}{% endif %}{% if ordenar_por %}&ordenar={{ ordenar_por }}{% endif %}" aria-label="Próxima">
-                  <span aria-hidden="true">&raquo;</span>
-                  </a>
-               </li>
-               {% endif %}
-            </ul>
-         </nav>
+         </div>
+         <div class="double-box">
+            <!--Paginação-->
+            <nav aria-label="Page navigation">
+               <ul class="pagination justify-content-center ml-2">
+                  {% if tarefasPg.has_previous %}
+                  <li class="page-item">
+                     <a class="page-link" href="?page={{ tarefasPg.previous_page_number }}{% if query %}&query={{ query }}{% endif %}{% if ordenar_por %}&ordenar={{ ordenar_por }}{% endif %}" aria-label="Anterior">
+                     <span aria-hidden="true">&laquo;</span>
+                     </a>
+                  </li>
+                  {% endif %}
+                  <li class="page-item disabled">
+                     <span class="page-link">
+                     Página {{ tarefasPg.number }} de {{ tarefasPg.paginator.num_pages }}
+                     </span>
+                  </li>
+                  {% if tarefasPg.has_next %}
+                  <li class="page-item">
+                     <a class="page-link" href="?page={{ tarefasPg.next_page_number }}{% if query %}&query={{ query }}{% endif %}{% if ordenar_por %}&ordenar={{ ordenar_por }}{% endif %}" aria-label="Próxima">
+                     <span aria-hidden="true">&raquo;</span>
+                     </a>
+                  </li>
+                  {% endif %}
+               </ul>
+            </nav>
+         </div>
          <footer class="bg-dark text-white text-center py-3 mt-4">
             <p>&copy; {{ current_year }} My To-Do App</p>
          </footer>
