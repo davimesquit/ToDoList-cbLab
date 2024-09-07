@@ -2,32 +2,40 @@ from django.shortcuts import render
 from .models import Tarefa
 from django.contrib import messages
 from .forms import TarefaModelForm
+from .forms import TarefaCreateModelForm
 from django.shortcuts import redirect
 from django.shortcuts import get_object_or_404
 
 def home(request):
     tarefas = Tarefa.objects.all()
     
+    ordenar_por = request.GET.get('ordenar', 'data')
+    
+    if ordenar_por == 'data':
+        tarefas = tarefas.order_by('-dataCriacao')
+    else:
+        tarefas = tarefas.order_by('status')
+    
     context = {
-        'title': 'Django To-Do',
         'tarefas': tarefas,
+        'ordenar_por': ordenar_por,
     }
     return render(request, 'home.html', context)
 
 def create(request):
     if str(request.method) == 'POST':
-        form = TarefaModelForm(request.POST)
+        form = TarefaCreateModelForm(request.POST)
         if form.is_valid():
             
             form.save()
             
             messages.success(request, 'Tarefa cadastrada com sucesso!')
-            form = TarefaModelForm()
+            form = TarefaCreateModelForm()
             return redirect('home')
         else: 
             messages.error(request, 'Erro ao cadastrar tarefa!')
     else: 
-        form = TarefaModelForm()
+        form = TarefaCreateModelForm()
         
     context = {
             'form': form,
