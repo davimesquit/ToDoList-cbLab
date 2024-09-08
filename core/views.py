@@ -14,15 +14,12 @@ def home(request):
     query = request.GET.get('query', '')
     ordenar_por = request.GET.get('ordenar', 'data')
     
-    print(f"Parâmetro ordenar_por: {ordenar_por}")
-    
     if query:
         tarefas = tarefas.filter(
             Q(titulo__icontains=query) | Q(descricao__icontains=query)
         )
     
     if ordenar_por == 'status':
-        print(f"Parâmetro ordenar_por devia ser status: {ordenar_por}")
         tarefas = tarefas.order_by(
             Case(
                 When(status='P', then=Value(0)),
@@ -33,8 +30,6 @@ def home(request):
         )
     else:
         tarefas = tarefas.order_by('-dataCriacao')
-        
-    print(f"Parâmetro ordenar_por: {ordenar_por}")
     
     paginator = Paginator(tarefas, 10)  # Mostra 10 tarefas por página
     page = request.GET.get('page')
@@ -43,8 +38,6 @@ def home(request):
         tarefas_pag = paginator.page(page)
     except PageNotAnInteger:
         tarefas_pag = paginator.page(1)
-    except EmptyPage:
-        tarefas_pag = paginator.page(paginator.num_pages)
     
     context = {
         'tarefasPg': tarefas_pag,
@@ -60,7 +53,6 @@ def create(request):
             
             form.save()
             
-            messages.success(request, 'Tarefa cadastrada com sucesso!')
             form = TarefaCreateModelForm()
             return redirect('home')
         else: 
@@ -90,9 +82,9 @@ def manage_tarefa(request, pk):
         form = TarefaModelForm(instance=tarefa)
         print(form)
         
-        context = {
-            'form': form,
-            'tarefa': tarefa,
-        }
+    context = {
+        'form': form,
+        'tarefa': tarefa,
+    }
     
     return render(request, 'manage_tarefa.html', context)
